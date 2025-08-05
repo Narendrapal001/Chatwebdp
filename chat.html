@@ -20,8 +20,7 @@
   </form>
 
   <script type="module">
-    import { getDatabase, ref, push, onChildAdded, remove, set, onDisconnect } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getDatabase, ref, push, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -49,18 +48,6 @@
         window.location.href = "login.html";
       } else {
         userEmail = user.email;
-        // 👇 Online status tracking
-const statusRef = ref(db, 'status/' + user.uid);
-set(statusRef, {
-  online: true,
-  name: user.displayName || user.email,
-  lastSeen: Date.now()
-});
-onDisconnect(statusRef).set({
-  online: false,
-  name: user.displayName || user.email,
-  lastSeen: Date.now()
-});
 
         const messagesRef = ref(db, "messages");
 
